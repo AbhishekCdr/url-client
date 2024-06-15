@@ -78,7 +78,7 @@ function Home() {
     <>
       <div className="flex flex-col items-center justify-center gap-9 p-4">
         <h1 className="self-start text-4xl font-bold">Create Short URL</h1>
-        <div className="flex h-2/3 w-2/4 flex-col rounded-lg bg-blue-100 px-20 py-16">
+        <div className="flex h-2/3 flex-col rounded-lg bg-blue-100 px-20 py-16 sm:w-2/4">
           <form
             className="flex w-full flex-col items-center gap-6"
             onSubmit={onSubmitHandler}
