@@ -1,22 +1,16 @@
-import { useState } from "react";
-import styles from "./ShortenLink.module.css";
+import copy from "copy-to-clipboard";
+import { LuClipboardCopy } from "react-icons/lu";
 
 function ShortenLink(props) {
   const { data } = props;
 
-  // console.log(data);
-
-  // const DEFAULT_SHORTEN_LINKS_VALUE = {
-  //   longurl: "",
-  //   shorturl: "",
-  //   count: "",
-  // };
-
-  // const [link, setLink] = useState([DEFAULT_SHORTEN_LINKS_VALUE]);
-
-  // function addShortenUrl(data) {
-  //   setLink((old) => [...old, data]);
-  // }
+  const copyToClipboard = (value) => {
+    let copyText = "https://url-api-ashy.vercel.app/" + value;
+    let isCopy = copy(copyText);
+    if (isCopy) {
+      alert(`Short URL Copied  ${copyText}`);
+    }
+  };
 
   return (
     <>
@@ -31,24 +25,46 @@ function ShortenLink(props) {
             </tr>
           </thead>
           <tbody>
-            {data.toReversed().map((data) => (
+            {!data ? (
               <tr key={data.id} id={data.id} className="bg-green-100 text-sm">
                 <td className="text-wrap border-[1px] border-gray-800 p-2">
-                  {data.longurl}
+                  Loading...
                 </td>
-                <td className="text-wrap border-[1px] border-gray-800 p-2 text-center text-red-600">
-                  <a
-                    href={"https://url-api-ashy.vercel.app/" + data.shorturlid}
-                    target="_blank"
-                  >
-                    {data.shorturlid}
-                  </a>
+                <td className="flex items-center justify-between gap-2 text-wrap border-[1px] border-gray-800 p-2 text-center text-red-600">
+                  Loading...
+                  <button onClick={() => copyToClipboard(data.shorturlid)}>
+                    <LuClipboardCopy className="cursor-pointer text-lg text-black transition-all ease-in hover:scale-110" />
+                  </button>
                 </td>
                 <td className="text-wrap border-[1px] border-gray-800 p-2 text-center">
-                  {data.count}
+                  Loading...
                 </td>
               </tr>
-            ))}
+            ) : (
+              data.toReversed().map((data) => (
+                <tr key={data.id} id={data.id} className="bg-green-100 text-sm">
+                  <td className="text-wrap border-[1px] border-gray-800 p-2">
+                    {data.longurl}
+                  </td>
+                  <td className="flex items-center justify-between gap-2 text-wrap border-[1px] border-gray-800 p-2 text-center text-red-600">
+                    <a
+                      href={
+                        "https://url-api-ashy.vercel.app/" + data.shorturlid
+                      }
+                      target="_blank"
+                    >
+                      {data.shorturlid}
+                    </a>
+                    <button onClick={() => copyToClipboard(data.shorturlid)}>
+                      <LuClipboardCopy className="cursor-pointer text-lg text-black transition-all ease-in hover:scale-110" />
+                    </button>
+                  </td>
+                  <td className="text-wrap border-[1px] border-gray-800 p-2 text-center">
+                    {data.count}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

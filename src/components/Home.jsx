@@ -70,7 +70,7 @@ function Home() {
     } catch (error) {
       setError(true);
       setMessage(error.message);
-      console.dir(error);
+      console.log(error);
     }
   }
 
@@ -102,6 +102,7 @@ function Home() {
             />
           </form>
         </div>
+
         <ShortenLink data={urlData} />
       </div>
     </>
